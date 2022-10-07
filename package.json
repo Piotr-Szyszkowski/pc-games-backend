@@ -1,5 +1,11 @@
 {
+  "scripts": {
+    "setup-dbs": "psql -f ./db/setup.sql"
+  },
   "dependencies": {
-    "pg": "^8.8.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "pg": "^8.8.0",
+    "pg-format": "^1.0.4"
   }
 }
