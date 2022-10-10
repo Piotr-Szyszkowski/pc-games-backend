@@ -10,7 +10,8 @@ const seed = () => {
     .then(() => {
       return db.query(`INSERT INTO reviews (title, review_body)
       VALUES      
-      ('Doom', 'Super classic father of all FPS games out there');`);
+      ('Doom (1993)', 'A science fiction first-person shooter by id Software, previously known mainly due to the Commander Keen arcade series and the ground-breaking Wolfenstein 3D.'),
+      ('Max Payne','Max Payne is an action game with a third person perspective (TPP), created by the Finnish studio Remedy Entertainment.');`);
     });
 };
 
