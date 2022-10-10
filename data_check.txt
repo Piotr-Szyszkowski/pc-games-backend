@@ -1,0 +1,6 @@
+You are now connected to database "pc_games" as user "piotr_szyszkowski".
+ review_id | title |                   review_body                   
+-----------+-------+-------------------------------------------------
+         1 | Doom  | Super classic father of all FPS games out there
+(1 row)
+

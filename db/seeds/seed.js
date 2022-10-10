@@ -8,6 +8,10 @@ const seed = () => {
       return createTables();
     })
     .then(() => {
-      return db.query;
+      return db.query(`INSERT INTO reviews (title, review_body)
+      VALUES      
+      ('Doom', 'Super classic father of all FPS games out there');`);
     });
 };
+
+module.exports = seed;
