@@ -12,8 +12,8 @@ const seed = ({ reviewData }) => {
       const reviewQueryStrForInsert = format(
         `INSERT INTO reviews (title, review_body)
       VALUES %L;`,
-        reviewData.map((review) => {
-          return [review.title, review.review_body];
+        reviewData.map(({ title, review_body }) => {
+          return [title, review_body];
         })
       );
       return db.query(reviewQueryStrForInsert);
