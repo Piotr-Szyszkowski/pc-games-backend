@@ -9,4 +9,9 @@ module.exports = [
     review_body:
       "Max Payne is an action game with a third person perspective (TPP), created by the Finnish studio Remedy Entertainment.",
   },
+  {
+    title: "Mass Effect",
+    review_body:
+      "An action RPG set in the convention of science fiction, developed by the BioWare studio team - authors of such cult titles as Baldur's Gate and Neverwinter Nights.",
+  },
 ];
