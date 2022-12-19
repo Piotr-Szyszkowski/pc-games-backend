@@ -1,4 +1,4 @@
-You are now connected to database "pc_games" as user "piotr_szyszkowski".
+You are now connected to database "pc_games" as user "piotr".
  review_id |    title    |                                                                             review_body                                                                             
 -----------+-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
          1 | Doom (1993) | A science fiction first-person shooter by id Software, previously known mainly due to the Commander Keen arcade series and the ground-breaking Wolfenstein 3D.

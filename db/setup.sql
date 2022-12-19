@@ -1,3 +1,5 @@
 DROP DATABASE IF EXISTS pc_games;
+DROP DATABASE IF EXISTS pc_games_test;
 
 CREATE DATABASE pc_games;
+CREATE DATABASE pc_games_test;
