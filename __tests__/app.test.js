@@ -25,3 +25,9 @@ describe(`GET /api`, () => {
       });
   });
 });
+
+describe(`GET /api/categories`, () => {
+  it("should return status: 200", () => {
+    return request(app).get("/api/categories").expect(200);
+  });
+});
