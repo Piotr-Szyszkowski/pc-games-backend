@@ -16,7 +16,7 @@ afterAll(() => {
 });
 
 describe(`GET /api`, () => {
-  it(`responds with status: 200`, () => {
+  it(`responds with status: 200 and a JSON describing all the endpoints in the API`, () => {
     return request(app)
       .get("/api")
       .expect(200)

@@ -3,7 +3,7 @@ const format = require("pg-format");
 const db = require("../connection");
 
 const seed = ({ reviewData }) => {
-  console.log(reviewData);
+  // console.log(reviewData);
   return dropTables()
     .then(() => {
       return createTables();

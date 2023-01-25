@@ -1,3 +1,4 @@
+const categoryData = require("./categories");
 const reviewData = require(`./reviews`);
 
-module.exports = { reviewData };
+module.exports = { categoryData, reviewData };
