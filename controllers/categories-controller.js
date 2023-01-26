@@ -1,5 +1,9 @@
+const selectCategories = require("../models/categories-model.js");
+
 const getCategories = (request, response, next) => {
-  console.log("Hello from categories-controller");
+  selectCategories(request, response).then((something) => {
+    response.status(200).send(something);
+  });
 };
 
 module.exports = getCategories;

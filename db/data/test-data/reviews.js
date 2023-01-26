@@ -2,6 +2,7 @@ module.exports = [
   {
     title: "Doom (1993)",
     release_date: "1993-12-10",
+    category: "FPS",
     review_intro:
       "A science fiction first-person shooter by id Software, previously known mainly due to the Commander Keen arcade series and the ground-breaking Wolfenstein 3D.",
     review_body:
@@ -10,6 +11,7 @@ module.exports = [
   {
     title: "Max Payne",
     release_date: "2001-07-26",
+    category: "FPS",
     review_intro:
       "Max Payne is an action game with a third person perspective (TPP), created by the Finnish studio Remedy Entertainment.",
     review_body:
@@ -18,6 +20,7 @@ module.exports = [
   {
     title: "Mass Effect",
     release_date: "2008-05-28",
+    category: "FPS",
     review_intro:
       "An action RPG set in the convention of science fiction, developed by the BioWare studio team - authors of such cult titles as Baldur's Gate and Neverwinter Nights.",
     review_body:
@@ -26,6 +29,7 @@ module.exports = [
   {
     title: "Duke Nukem 3D",
     release_date: "1996-05-13",
+    category: "FPS",
     review_intro:
       "One of the most famous first-person shooters and at the same time the third installment of the series about the adventures of an arrogant hero. The title focuses on dynamics and effectiveness, while also serving a lot of humor.",
     review_body:
