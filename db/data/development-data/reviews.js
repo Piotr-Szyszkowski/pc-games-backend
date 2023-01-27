@@ -11,7 +11,7 @@ module.exports = [
   {
     title: "Max Payne",
     release_date: "2001-07-26",
-    category: "FPS",
+    category: "Action",
     review_intro:
       "Max Payne is an action game with a third person perspective (TPP), created by the Finnish studio Remedy Entertainment.",
     review_body:
@@ -20,7 +20,7 @@ module.exports = [
   {
     title: "Mass Effect",
     release_date: "2008-05-28",
-    category: "FPS",
+    category: "RPG",
     review_intro:
       "An action RPG set in the convention of science fiction, developed by the BioWare studio team - authors of such cult titles as Baldur's Gate and Neverwinter Nights.",
     review_body:

@@ -1,0 +1,10 @@
+You are now connected to database "pc_games_test" as user "piotr_szyszkowski".
+ cat_name  
+-----------
+ FPS
+ Action
+ RPG
+ Strategy
+ Adventure
+(5 rows)
+

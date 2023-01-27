@@ -1,8 +1,8 @@
 const selectCategories = require("../models/categories-model.js");
 
 const getCategories = (request, response, next) => {
-  selectCategories(request, response).then((something) => {
-    response.status(200).send(something);
+  selectCategories(request, response).then((categories) => {
+    response.status(200).send({ categories });
   });
 };
 
