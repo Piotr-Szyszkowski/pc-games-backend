@@ -37,3 +37,30 @@ describe(`GET /api/categories`, () => {
       });
   });
 });
+
+describe("GET /api/reviews", () => {
+  it("should respond with status:200, and should respond with an array review objects each of which should have following properties:review_id, title, release_date, category, review_intro, review_body", () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        console.log(returnedAllReviewArray);
+        expect(returnedAllReviewArray).toBeInstanceOf(Array);
+        expect(returnedAllReviewArray).toHaveLength(4);
+        returnedAllReviewArray.forEach((review) => {
+          const dateRegex = /^(\d{4}-\d{2}-\d{2})$/;
+          expect(review).toEqual(
+            expect.objectContaining({
+              review_id: expect.any(Number),
+              title: expect.any(String),
+              release_date: expect.stringMatching(dateRegex),
+              category: expect.any(String),
+              review_intro: expect.any(String),
+              review_body: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+});

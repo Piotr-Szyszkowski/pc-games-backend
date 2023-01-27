@@ -15,7 +15,7 @@ const seed = ({ categoryData, reviewData }) => {
           return [cat_name];
         })
       );
-      console.log(categoryQueryStrForInsert);
+
       return db.query(categoryQueryStrForInsert);
     })
     .then(() => {
