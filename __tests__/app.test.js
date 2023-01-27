@@ -45,7 +45,6 @@ describe("GET /api/reviews", () => {
       .expect(200)
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
-        console.log(returnedAllReviewArray);
         expect(returnedAllReviewArray).toBeInstanceOf(Array);
         expect(returnedAllReviewArray).toHaveLength(4);
         returnedAllReviewArray.forEach((review) => {
