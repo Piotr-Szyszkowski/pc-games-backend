@@ -14,4 +14,7 @@ module.exports = [
   {
     cat_name: "Adventure",
   },
+  {
+    cat_name: "Simulation",
+  },
 ];
