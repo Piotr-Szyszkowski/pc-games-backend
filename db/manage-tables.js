@@ -11,6 +11,7 @@ const createTables = () => {
       return db.query(`CREATE TABLE reviews (
     review_id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
+    cover_img VARCHAR,
     release_date DATE,
     category VARCHAR REFERENCES categories(cat_name) NOT NULL,
     review_intro VARCHAR NOT NULL,

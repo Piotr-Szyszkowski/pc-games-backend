@@ -1,6 +1,7 @@
 module.exports = [
   {
     title: "Doom (1993)",
+    cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/2036.jpg",
     release_date: "1993-12-10",
     category: "FPS",
     review_intro:
@@ -10,6 +11,7 @@ module.exports = [
   },
   {
     title: "Max Payne",
+    cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/875.jpg",
     release_date: "2001-07-26",
     category: "Action",
     review_intro:
@@ -19,6 +21,7 @@ module.exports = [
   },
   {
     title: "Mass Effect",
+    cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/2049.jpg",
     release_date: "2008-05-28",
     category: "RPG",
     review_intro:
@@ -28,6 +31,7 @@ module.exports = [
   },
   {
     title: "Duke Nukem 3D",
+    cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/1439.jpg",
     release_date: "1996-05-13",
     category: "FPS",
     review_intro:
