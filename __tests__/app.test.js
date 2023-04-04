@@ -46,7 +46,7 @@ describe("GET /api/reviews", () => {
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         expect(returnedAllReviewArray).toBeInstanceOf(Array);
-        expect(returnedAllReviewArray).toHaveLength(4);
+        expect(returnedAllReviewArray).toHaveLength(6);
         returnedAllReviewArray.forEach((review) => {
           const dateRegex = /^(\d{4}-\d{2}-\d{2})$/;
           expect(review).toEqual(
@@ -59,6 +59,17 @@ describe("GET /api/reviews", () => {
               review_body: expect.any(String),
             })
           );
+        });
+      });
+  });
+  it('should respond with array by default sorted by "release_date" descending - newest first', () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("release_date", {
+          descending: true,
         });
       });
   });
