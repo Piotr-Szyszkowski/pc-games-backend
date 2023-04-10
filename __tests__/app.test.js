@@ -73,4 +73,15 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+  it('should accept an "order" query, determining ascending or descending sorting', () => {
+    return request(app)
+      .get("/api/reviews?order=asc")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("release_date", {
+          descending: false,
+        });
+      });
+  });
 });
