@@ -73,4 +73,30 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+  it('should accept an "order" query, determining ascending or descending sorting', () => {
+    return request(app)
+      .get("/api/reviews?order=asc")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("release_date", {
+          descending: false,
+        });
+      });
+  });
+});
+
+/*********** ERROR HANDLERS ************/
+
+describe(`ERRORS: Non-existent routes`, () => {
+  it(`Test 1 - GET /lukeskywalker ---> status 404 and appropriate message`, () => {
+    return request(app)
+      .get(`/lukeskywalker`)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.message).toBe(
+          `This is not the page you are looking for`
+        );
+      });
+  });
 });

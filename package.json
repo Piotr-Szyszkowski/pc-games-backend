@@ -2,6 +2,7 @@
   "main": "listen.js",
   "scripts": {
     "start": "node listen.js",
+    "demon": "nodemon listen.js",
     "seed-prod": "NODE_ENV=production npm run seed",
     "setup-dbs": "psql -f ./db/setup.sql",
     "seed": "node ./db/seeds/run-seed.js",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "jest": "^29.3.1",
     "jest-sorted": "^1.0.14",
+    "nodemon": "^2.0.22",
     "supertest": "^6.3.3"
   },
   "jest": {
