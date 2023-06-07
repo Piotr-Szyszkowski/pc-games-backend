@@ -100,3 +100,17 @@ describe(`ERRORS: Non-existent routes`, () => {
       });
   });
 });
+
+describe(`ERRORS: GET /api/reviews`, () => {
+  it(`Status: 400 and custom message if passed invalid order query`, () => {
+    const invOrder = `neworder`;
+    return request(app)
+      .get(`/api/reviews?order=${invOrder}`)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.message).toBe(
+          `Invalid <order> format. Please enter <asc> for ascending, or <desc> for descending.`
+        );
+      });
+  });
+});
