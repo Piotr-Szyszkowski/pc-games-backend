@@ -85,3 +85,18 @@ describe("GET /api/reviews", () => {
       });
   });
 });
+
+/*********** ERROR HANDLERS ************/
+
+describe(`ERRORS: Non-existent routes`, () => {
+  it(`Test 1 - GET /lukeskywalker ---> status 404 and appropriate message`, () => {
+    return request(app)
+      .get(`/lukeskywalker`)
+      .expect(404)
+      .then((response) => {
+        expect(response.body.message).toBe(
+          `This is not the page you are looking for`
+        );
+      });
+  });
+});
