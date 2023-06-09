@@ -62,6 +62,23 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+  it(`each review objects should have "upvotes" and "downvotes" property which would be a number`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review).toEqual(
+            expect.objectContaining({
+              upvotes: expect.any(Number),
+              downvotes: expect.any(Number),
+            })
+          );
+        });
+      });
+  });
+
   it('should respond with array by default sorted by "release_date" descending - newest first', () => {
     return request(app)
       .get("/api/reviews")

@@ -21,6 +21,8 @@ const selectReviews = async (order = "desc") => {
   return reviewsWithFormattedDate;
 };
 
+module.exports = selectReviews;
+
 // const selectReviews = async (order) => {
 //   return db
 //     .query("SELECT * FROM reviews ORDER BY release_date DESC;")
@@ -35,8 +37,6 @@ const selectReviews = async (order = "desc") => {
 //       return reviewsWithFormattedDate;
 //     });
 // };
-
-module.exports = selectReviews;
 
 // const selectReviews = (request, response, next) => {
 //   const { order } = request.query;

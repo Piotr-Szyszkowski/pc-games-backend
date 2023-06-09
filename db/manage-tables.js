@@ -15,7 +15,9 @@ const createTables = () => {
     release_date DATE,
     category VARCHAR REFERENCES categories(cat_name) NOT NULL,
     review_intro VARCHAR NOT NULL,
-    review_body VARCHAR NOT NULL
+    review_body VARCHAR NOT NULL,
+    upvotes INT DEFAULT 0,
+    downvotes INT DEFAULT 0
 );`);
     });
 };
