@@ -101,6 +101,17 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+  it(`Test 1 - should accept a "sort by" query, ie. "sort by title", default sort order descending`, () => {
+    return request(app)
+      .get(`/api/reviews?sort_by=title`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("title", {
+          descending: true,
+        });
+      });
+  });
 });
 
 /*********** ERROR HANDLERS ************/
