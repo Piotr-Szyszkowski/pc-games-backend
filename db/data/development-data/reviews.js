@@ -11,6 +11,7 @@ module.exports = [
     upvotes: 666,
     downvotes: 6,
     rating_count: 6666,
+    rating_sum: 33330,
     rating: 0,
   },
   {
@@ -24,7 +25,8 @@ module.exports = [
       "Max Payne for PC, PS4, etc. is a third-person action thriller game. Remedy Entertainment, a studio from Finland, previously known mainly for the arcade racing game Death Rally from 1996, is responsible for creating the title. The original version of the game debuted in 2001 on PCs and sixth-generation consoles, and two years later, thanks to Mobius Entertainment, it received a greatly simplified conversion to the portable Game Boy Advance console. Eleven years after the premiere of the original, Max Payne Mobile, developed by the War Drum studio team, hit popular mobile devices, offering refreshed graphics, upgraded to HD standards. In the same year, as part of the PS2 Classics service, a digital re-edition of the original game from 2001 was made available to users of PlayStation 3 consoles. In spring 2016, Max Payne also went to PlayStation 4 owners, enriched with trophy support and graphics scaled to 1080p.",
     upvotes: 7,
     downvotes: 62,
-    rating_count: 0,
+    rating_count: 2,
+    rating_sum: 3,
     rating: 0,
   },
   {
@@ -38,7 +40,8 @@ module.exports = [
       "Mass Effect is an extensive RPG production with numerous elements of an action game, prepared by employees of BioWare studio (creators of the popular and recognized series Baldur's Gate, Neverwinter Nights and Star Wars: Knights of the Old Republic). It is also the first part of a trilogy of games. The action of the game takes place in the year 2183, when humanity spread throughout the galaxy and was forced to cooperate and fight with alien civilizations for its place in the universe. Players assume the role of Commander Shepard, the first human Specter - sworn defender of peace. His main task is to stop the attacking armies of the former agent Saren, who opposed the established order and wants to take revenge on the human race. Together with the entire team under command, players will travel through a series of unknown worlds. During the expedition, they discover that the real threat is much more serious than previously thought...",
     upvotes: 80,
     downvotes: 34,
-    rating_count: 0,
+    rating_count: 4,
+    rating_sum: 15,
     rating: 0,
   },
   {
@@ -53,6 +56,7 @@ module.exports = [
     upvotes: 98,
     downvotes: 51,
     rating_count: 0,
+    rating_sum: 0,
     rating: 0,
   },
   {
@@ -67,6 +71,7 @@ module.exports = [
     upvotes: 397,
     downvotes: 346,
     rating_count: 0,
+    rating_sum: 0,
     rating: 0,
   },
   {
@@ -81,6 +86,7 @@ module.exports = [
     upvotes: 75,
     downvotes: 62,
     rating_count: 0,
+    rating_sum: 0,
     rating: 0,
   },
 ];

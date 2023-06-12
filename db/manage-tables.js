@@ -19,7 +19,8 @@ const createTables = () => {
     upvotes INT DEFAULT 0,
     downvotes INT DEFAULT 0,
     rating_count INT DEFAULT 0 NOT NULL,
-    rating INT DEFAULT 0 NOT NULL
+    rating_sum INT DEFAULT 0 NOT NULL,
+    rating FLOAT DEFAULT 0 NOT NULL
 );`);
     });
 };

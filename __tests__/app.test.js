@@ -78,7 +78,7 @@ describe("GET /api/reviews", () => {
         });
       });
   });
-  it(`Review objects should have a "rating" property, which would be a number, but default at "0" value (Number), between "0" and "10" inclusive`, () => {
+  it(`Rating - Test 1 - Review objects should have a "rating" property, which would be a number, but default at "0" value (Number), between "0" and "10" inclusive`, () => {
     return request(app)
       .get("/api/reviews")
       .expect(200)
@@ -92,7 +92,27 @@ describe("GET /api/reviews", () => {
       });
   });
 
-  it(`Review objects should have a "rating_count" property, which would be a number, but default at "0" value (Number), between "0" infinity`, () => {
+  it(`Rating - Test 1.1 - rating should represent correctly calculated and formatted number - rating_sum divided by rating_count and displayed as single decimal float`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          const { rating_count, rating_sum, rating } = review;
+          const expectedRating = Number(
+            rating_sum === 0
+              ? 0
+              : Number(
+                  rating_count === 0 ? 0 : rating_sum / rating_count
+                ).toFixed(1)
+          );
+          expect(rating).toEqual(expectedRating);
+        });
+      });
+  });
+
+  it(`Rating - Test 2 - Review objects should have a "rating_count" property, which would be a number, but default at "0" value (Number), between "0" and infinity`, () => {
     return request(app)
       .get("/api/reviews")
       .expect(200)
@@ -104,7 +124,7 @@ describe("GET /api/reviews", () => {
         });
       });
   });
-  it(`Rating_count should display correct amount of ratings given`, () => {
+  it(`Rating - Test 2.1 - Rating_count should display correct amount of ratings given`, () => {
     return request(app)
       .get("/api/reviews")
       .expect(200)
@@ -114,8 +134,19 @@ describe("GET /api/reviews", () => {
             return review;
           }
         })[0];
-        console.log(doomReviewObject.rating_count);
         expect(doomReviewObject.rating_count).toEqual(6666);
+      });
+  });
+  it(`Rating - Test 3 - Review object should have "rating_sum" property, which would be a number between 0 (inclusive) and infinity`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review.rating_sum).toEqual(expect.any(Number));
+          expect(review.rating_sum).toBeGreaterThanOrEqual(0);
+        });
       });
   });
 
