@@ -20,7 +20,7 @@ const seed = ({ categoryData, reviewData }) => {
     })
     .then(() => {
       const reviewQueryStrForInsert = format(
-        `INSERT INTO reviews (title, cover_img, release_date, category, review_intro, review_body, upvotes, downvotes)
+        `INSERT INTO reviews (title, cover_img, release_date, category, review_intro, review_body, upvotes, downvotes, rating_count, rating)
       VALUES %L;`,
         reviewData.map(
           ({
@@ -32,6 +32,8 @@ const seed = ({ categoryData, reviewData }) => {
             review_body,
             upvotes,
             downvotes,
+            rating_count,
+            rating,
           }) => {
             return [
               title,
@@ -42,6 +44,8 @@ const seed = ({ categoryData, reviewData }) => {
               review_body,
               upvotes,
               downvotes,
+              rating_count,
+              rating,
             ];
           }
         )

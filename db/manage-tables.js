@@ -17,7 +17,9 @@ const createTables = () => {
     review_intro VARCHAR NOT NULL,
     review_body VARCHAR NOT NULL,
     upvotes INT DEFAULT 0,
-    downvotes INT DEFAULT 0
+    downvotes INT DEFAULT 0,
+    rating_count INT DEFAULT 0 NOT NULL,
+    rating INT DEFAULT 0 NOT NULL
 );`);
     });
 };

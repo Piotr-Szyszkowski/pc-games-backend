@@ -78,6 +78,46 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+  it(`Review objects should have a "rating" property, which would be a number, but default at "0" value (Number), between "0" and "10" inclusive`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review.rating).toEqual(expect.any(Number));
+          expect(review.rating).toBeGreaterThanOrEqual(0);
+          expect(review.rating).toBeLessThanOrEqual(10);
+        });
+      });
+  });
+
+  it(`Review objects should have a "rating_count" property, which would be a number, but default at "0" value (Number), between "0" infinity`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review.rating_count).toEqual(expect.any(Number));
+          expect(review.rating_count).toBeGreaterThanOrEqual(0);
+        });
+      });
+  });
+  it(`Rating_count should display correct amount of ratings given`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const doomReviewObject = response.body.reviews.filter((review) => {
+          if (review.title === `Doom (1993)`) {
+            return review;
+          }
+        })[0];
+        console.log(doomReviewObject.rating_count);
+        expect(doomReviewObject.rating_count).toEqual(6666);
+      });
+  });
 
   it('should respond with array by default sorted by "release_date" descending - newest first', () => {
     return request(app)
@@ -101,7 +141,7 @@ describe("GET /api/reviews", () => {
         });
       });
   });
-  it(`Test 1 - should accept a "sort by" query, ie. "sort by title", default sort order descending`, () => {
+  it(`Sort by - Test 1 - should accept a "sort by" query, ie. "sort by title", default sort order descending`, () => {
     return request(app)
       .get(`/api/reviews?sort_by=title`)
       .expect(200)
@@ -110,6 +150,35 @@ describe("GET /api/reviews", () => {
         expect(returnedAllReviewArray).toBeSortedBy("title", {
           descending: true,
         });
+      });
+  });
+  it(`Sort by - Test 1.1 - should accept a "sort by" query, ie. "sort by title", default sort order descending and be able to order as "ascending" too`, () => {
+    return request(app)
+      .get(`/api/reviews?sort_by=title&order=asc`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("title");
+      });
+  });
+  it(`Sort by - Test 2 - should accept a "sort by" query, ie. "upvotes", default sort order descending`, () => {
+    return request(app)
+      .get(`/api/reviews?sort_by=upvotes`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("upvotes", {
+          descending: true,
+        });
+      });
+  });
+  it(`Sort by - Test 2.1 - should accept a "sort by" query, ie. "upvotes", default sort order descending`, () => {
+    return request(app)
+      .get(`/api/reviews?sort_by=upvotes&order=asc`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        expect(returnedAllReviewArray).toBeSortedBy("upvotes");
       });
   });
 });
@@ -138,6 +207,17 @@ describe(`ERRORS: GET /api/reviews`, () => {
       .then((response) => {
         expect(response.body.message).toBe(
           `Invalid <order> format. Please enter <asc> for ascending, or <desc> for descending.`
+        );
+      });
+  });
+  it(`Status: 400 and custom message if passed invalid sort_by query`, () => {
+    invSortBy = `sortItOut`;
+    return request(app)
+      .get(`/api/reviews?sort_by=${invSortBy}`)
+      .expect(400)
+      .then((response) => {
+        expect(response.body.message).toBe(
+          `You canot sort reviews by ${invSortBy}. Please enter a valid sort_by parameter.`
         );
       });
   });

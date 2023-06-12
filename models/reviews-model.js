@@ -1,17 +1,25 @@
 const db = require("../db/connection");
 const formatDate = require("../db/utilities/format-date.js");
 
-const selectReviews = async (order = "desc") => {
+const selectReviews = async (order = "desc", sort_by = "release_date") => {
   const acceptedOrders = ["asc", "desc"];
+  const acceptedSortByArray = ["release_date", "title", "upvotes", "downvotes"];
+  console.log(`Sort_by from reviews-model: ${sort_by}`);
   if (!acceptedOrders.includes(order)) {
     return Promise.reject({
       status: 400,
       message: `Invalid <order> format. Please enter <asc> for ascending, or <desc> for descending.`,
     });
   }
-  console.log(order);
+  if (!acceptedSortByArray.includes(sort_by)) {
+    return Promise.reject({
+      status: 400,
+      message: `You canot sort reviews by ${sort_by}. Please enter a valid sort_by parameter.`,
+    });
+  }
+  console.log(`"order from reviews-model: ${order}`);
   const reviewsFromDB = await db.query(
-    `SELECT * FROM reviews ORDER BY release_date ${order};`
+    `SELECT * FROM reviews ORDER BY ${sort_by} ${order};`
   );
   const reviewsWithFormattedDate = reviewsFromDB.rows.map((reviewObject) => {
     const releaseDateString = new Date(reviewObject.release_date).toISOString();
