@@ -78,21 +78,21 @@ describe("GET /api/reviews", () => {
         });
       });
   });
-  it(`Rating - Test 1 - Review objects should have a "rating" property, which would be a number, but default at "0" value (Number), between "0" and "10" inclusive`, () => {
+  it(`Rating - Test 1 - Review objects should have a "rating" property, which would be a number, but default at "1.0" value (Number), between "1.0" and "10" inclusive`, () => {
     return request(app)
       .get("/api/reviews")
       .expect(200)
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         returnedAllReviewArray.forEach((review) => {
-          expect(review.rating).toEqual(expect.any(Number));
-          expect(review.rating).toBeGreaterThanOrEqual(0);
+          expect(typeof review.rating).toEqual("number");
+          expect(review.rating).toBeGreaterThanOrEqual(1.0);
           expect(review.rating).toBeLessThanOrEqual(10);
         });
       });
   });
 
-  it(`Rating - Test 1.1 - rating should represent correctly calculated and formatted number - rating_sum divided by rating_count and displayed as single decimal float`, () => {
+  it(`Rating - Test 1.1 - rating should represent correctly calculated and formatted number - rating_sum divided by rating_count and displayed as single decimal float. Minimum rating should be 1.0.`, () => {
     return request(app)
       .get("/api/reviews")
       .expect(200)
@@ -102,7 +102,7 @@ describe("GET /api/reviews", () => {
           const { rating_count, rating_sum, rating } = review;
           const expectedRating = Number(
             rating_sum === 0
-              ? 0
+              ? 1.0
               : Number(
                   rating_count === 0 ? 0 : rating_sum / rating_count
                 ).toFixed(1)
@@ -210,6 +210,32 @@ describe("GET /api/reviews", () => {
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         expect(returnedAllReviewArray).toBeSortedBy("upvotes");
+      });
+  });
+});
+
+describe(`GET /api/reviews/:review_id`, () => {
+  it(`Status: 200 - should return a single review object with matching review_id`, () => {
+    return request(app)
+      .get(`/api/reviews/3`)
+      .expect(200)
+      .then((response) => {
+        expect(response.body).toEqual({
+          review_id: 3,
+          title: "Mass Effect",
+          cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/2049.jpg",
+          release_date: "2008-05-28",
+          category: "RPG",
+          review_intro:
+            "An action RPG set in the convention of science fiction, developed by the BioWare studio team - authors of such cult titles as Baldur's Gate and Neverwinter Nights.",
+          review_body:
+            "Mass Effect is an extensive RPG production with numerous elements of an action game, prepared by employees of BioWare studio (creators of the popular and recognized series Baldur's Gate, Neverwinter Nights and Star Wars: Knights of the Old Republic). It is also the first part of a trilogy of games. The action of the game takes place in the year 2183, when humanity spread throughout the galaxy and was forced to cooperate and fight with alien civilizations for its place in the universe. Players assume the role of Commander Shepard, the first human Specter - sworn defender of peace. His main task is to stop the attacking armies of the former agent Saren, who opposed the established order and wants to take revenge on the human race. Together with the entire team under command, players will travel through a series of unknown worlds. During the expedition, they discover that the real threat is much more serious than previously thought...",
+          upvotes: 80,
+          downvotes: 34,
+          rating_count: 4,
+          rating_sum: 15,
+          rating: 3.8,
+        });
       });
   });
 });

@@ -37,9 +37,8 @@ const seed = ({ categoryData, reviewData }) => {
             rating,
           }) => {
             const calculatedRating = Number(
-              rating_sum === 0 ? 0 : rating_sum / rating_count
+              rating_sum === 0 ? 1.0 : rating_sum / rating_count
             ).toFixed(1);
-
             return [
               title,
               cover_img,

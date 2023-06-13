@@ -42,7 +42,7 @@ module.exports = [
     downvotes: 34,
     rating_count: 4,
     rating_sum: 15,
-    rating: 0,
+    rating: 3.8,
   },
   {
     title: "Duke Nukem 3D",

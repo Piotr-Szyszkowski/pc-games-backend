@@ -20,7 +20,7 @@ const createTables = () => {
     downvotes INT DEFAULT 0,
     rating_count INT DEFAULT 0 NOT NULL,
     rating_sum INT DEFAULT 0 NOT NULL,
-    rating FLOAT DEFAULT 0 NOT NULL
+    rating DECIMAL DEFAULT 1.0 NOT NULL
 );`);
     });
 };
