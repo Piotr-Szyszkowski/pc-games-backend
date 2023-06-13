@@ -5,7 +5,13 @@ const formatRating = require("../db/utilities/format-rating");
 
 const selectReviews = async (order = "desc", sort_by = "release_date") => {
   const acceptedOrders = ["asc", "desc"];
-  const acceptedSortByArray = ["release_date", "title", "upvotes", "downvotes"];
+  const acceptedSortByArray = [
+    "release_date",
+    "title",
+    "upvotes",
+    "downvotes",
+    "rating",
+  ];
 
   if (!acceptedOrders.includes(order)) {
     return Promise.reject({

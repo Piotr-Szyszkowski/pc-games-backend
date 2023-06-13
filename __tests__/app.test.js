@@ -46,7 +46,7 @@ describe("GET /api/reviews", () => {
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         expect(returnedAllReviewArray).toBeInstanceOf(Array);
-        expect(returnedAllReviewArray).toHaveLength(6);
+        expect(returnedAllReviewArray).toHaveLength(7);
         returnedAllReviewArray.forEach((review) => {
           const dateRegex = /^(\d{4}-\d{2}-\d{2})$/;
           expect(review).toEqual(

@@ -42,7 +42,7 @@ module.exports = [
     downvotes: 34,
     rating_count: 4,
     rating_sum: 15,
-    rating: 0,
+    rating: 3.8,
   },
   {
     title: "Duke Nukem 3D",
@@ -87,6 +87,30 @@ module.exports = [
     downvotes: 62,
     rating_count: 0,
     rating_sum: 0,
+    rating: 0,
+  },
+  {
+    title: "The Elder Scrolls III: Morrowind",
+    cover_img: "https://www.gry-online.pl/galeria/gry13/-824609718d.jpg",
+    release_date: "2002-05-01",
+    category: "RPG",
+    review_intro:
+      "The third part of the epic action RPG series. The plot of TES III: Morrowind takes us back to the world of Tamriel. We play the role of a prisoner who is freed by the emperor and returns with a secret mission. It quickly began to be transpire that they are the incarnation of the legendary hero Nerevar.",
+    review_body: `Plot
+      Morrowind takes us to the volcanic island of Vvardenfell in the title Morrowind, which is one of the provinces of the Tamriel empire. The ruling triumvirate of immortal divine beings is fighting an unequal battle with its recent ally - Dagoth Ure - who has not only become immortal himself, but also intends to expel the imperial troops from here, using his followers (the so-called Sixth House) and a disease he created known as as a corruption. The character we play is a former prisoner pardoned on the orders of the emperor himself - Uriel Septim VII. Although initially nothing indicates it, it is to leave a lasting mark on the fate of both the island itself and the entire empire.
+      
+      Gameplay
+      In TES 3: Morrowind, we can observe the action from the eyes (FPP) or from behind the character's back (TPP). We start the game with a short conversation with another prisoner and leave the ship on which we arrived in Vvardenfell. Next, we have conversations with imperial officials. By answering their questions, we create our character by giving her a name, deciding on her gender, race, appearance, class (which we can choose from a list or create ourselves) and the sign she was born under. The choices made at this stage are important because they affect her stats and skills. Then the game world is open to us.
+      
+      Vvardenfell is vast. We will find there not only cities (Balmora, Vivec, Ald'ruhn, Ebonheart) and small settlements (such as Ashland camps or villages like the port of Seyda Neen, where our adventure begins), but also various mines and caves, fortresses and forts, and also all sorts of ruins, where you can come across both valuable items and numerous dangers. The driving force of the game are quests that push the story forward, accompanied by an abundance of side missions; the latter are made for both ordinary inhabitants of Vvardenfell and for guilds (whose ranks we can join and gradually climb the career ladder) and other groups.
+      
+      Exploration and execution of orders are often hindered by opponents, among whom we will find both hostile people and representatives of other races, as well as all kinds of monsters and machines left by the ancient civilization of the Dwemer. The clashes take place in real time, and we eliminate enemies by using melee and ranged weapons, as well as various spells. We develop our character's individual skills by simply using them or taking lessons from teachers; this applies to both the use of weapons (divided into their individual types) and magic (as above), as well as more prosaic things like running speed (athletics) or the height and distance of jumps (acrobatics). After developing ten abilities, our character will advance to the next level of experience, which in turn gives us the opportunity to develop statistics. In addition, we develop the hero's combat potential by acquiring better and better equipment; new items are found or purchased from traders. In addition, one of the abilities available in the game is alchemy, thanks to which we can create various types of potions.
+      
+      In 2002, the visuals of The Elder Scrolls III: Morrowind could be enjoyed; the realistically animated water was especially impressive. Although the game has clearly aged, today it attracts attention mainly due to its unique atmosphere. The climatic soundtrack, signed by the famous Jeremy Soule, has stood the test of time perfectly.`,
+    upvotes: 125,
+    downvotes: 61,
+    rating_count: 15,
+    rating_sum: 130,
     rating: 0,
   },
 ];
