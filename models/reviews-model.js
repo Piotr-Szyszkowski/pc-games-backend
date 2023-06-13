@@ -25,12 +25,8 @@ const selectReviews = async (order = "desc", sort_by = "release_date") => {
   );
   const reviewsWithFormattedDateAndRating = reviewsFromDB.rows.map(
     (reviewObject) => {
-      const releaseDateString = new Date(
-        `${reviewObject.release_date} GMT`
-      ).toISOString();
-      const ratingString = reviewObject.rating;
-      reviewObject.release_date = formatDate(releaseDateString);
-      reviewObject.rating = formatRating(ratingString);
+      reviewObject.release_date = formatDate(reviewObject.release_date);
+      reviewObject.rating = formatRating(reviewObject.rating);
       return reviewObject;
     }
   );
@@ -38,53 +34,18 @@ const selectReviews = async (order = "desc", sort_by = "release_date") => {
 };
 
 const selectReviewById = async (review_id) => {
-  // console.log(`selectReviewById firing! and id is ${review_id}`);
   const queryString = format(
     `SELECT * FROM reviews WHERE review_id = %L;`,
     review_id
   );
   const reviewByIdRaw = await db.query(queryString);
   const theReview = reviewByIdRaw.rows[0];
-  // console.log(typeof theReview.release_date);
-  const releaseDateString = new Date(
-    `${theReview.release_date} GMT`
-  ).toISOString();
-  theReview.release_date = formatDate(releaseDateString);
+  console.log(theReview.release_date);
+
+  theReview.release_date = formatDate(theReview.release_date);
   theReview.rating = formatRating(theReview.rating);
-  // console.log(theReview);
+
   return theReview;
 };
 
 module.exports = { selectReviews, selectReviewById };
-
-// const selectReviews = async (order) => {
-//   return db
-//     .query("SELECT * FROM reviews ORDER BY release_date DESC;")
-//     .then((reviews) => {
-//       const reviewsWithFormattedDate = reviews.rows.map((reviewObject) => {
-//         const releaseDateString = new Date(
-//           reviewObject.release_date
-//         ).toISOString();
-//         reviewObject.release_date = formatDate(releaseDateString);
-//         return reviewObject;
-//       });
-//       return reviewsWithFormattedDate;
-//     });
-// };
-
-// const selectReviews = (request, response, next) => {
-//   const { order } = request.query;
-//   console.log(order);
-//   return db
-//     .query("SELECT * FROM reviews ORDER BY release_date DESC;")
-//     .then((reviews) => {
-//       const reviewsWithFormattedDate = reviews.rows.map((reviewObject) => {
-//         const releaseDateString = new Date(
-//           reviewObject.release_date
-//         ).toISOString();
-//         reviewObject.release_date = formatDate(releaseDateString);
-//         return reviewObject;
-//       });
-//       return reviewsWithFormattedDate;
-//     });
-// };
