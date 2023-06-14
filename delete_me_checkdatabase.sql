@@ -4,5 +4,5 @@
 -- ORDER BY release_date
 -- OFFSET 1 ROWS FETCH NEXT 2 ROWS ONLY;
 
-SELECT * FROM reviews
-WHERE review_id = 3;
+SELECT * FROM reviews;
+-- WHERE category = 'RPG';

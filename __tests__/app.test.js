@@ -78,6 +78,7 @@ describe("GET /api/reviews", () => {
         });
       });
   });
+
   it(`Rating - Test 1 - Review objects should have a "rating" property, which would be a number, but default at "1.0" value (Number), between "1.0" and "10" inclusive`, () => {
     return request(app)
       .get("/api/reviews")
@@ -210,6 +211,31 @@ describe("GET /api/reviews", () => {
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         expect(returnedAllReviewArray).toBeSortedBy("upvotes");
+      });
+  });
+  it(`"Category" query - Should accept a "category" query that would only display games of given category`, () => {
+    return request(app)
+      .get(`/api/reviews?category=RPG`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review.category).toBe("RPG");
+        });
+      });
+  });
+  it(`Should accept joint "category", "sort_by" and "order" queries`, () => {
+    return request(app)
+      .get(`/api/reviews?category=FPS&sort_by=rating&order=asc`)
+      .expect(200)
+      .then((response) => {
+        const returnedAllReviewArray = response.body.reviews;
+        returnedAllReviewArray.forEach((review) => {
+          expect(review.category).toBe("FPS");
+        });
+        expect(returnedAllReviewArray).toBeSortedBy("rating", {
+          descending: false,
+        });
       });
   });
 });

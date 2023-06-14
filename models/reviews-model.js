@@ -3,7 +3,11 @@ const format = require("pg-format");
 const formatDate = require("../db/utilities/format-date.js");
 const formatRating = require("../db/utilities/format-rating");
 
-const selectReviews = async (order = "desc", sort_by = "release_date") => {
+const selectReviews = async (
+  category = "%",
+  order = "desc",
+  sort_by = "release_date"
+) => {
   const acceptedOrders = ["asc", "desc"];
   const acceptedSortByArray = [
     "release_date",
@@ -27,7 +31,9 @@ const selectReviews = async (order = "desc", sort_by = "release_date") => {
   }
 
   const reviewsFromDB = await db.query(
-    `SELECT * FROM reviews ORDER BY ${sort_by} ${order};`
+    `SELECT * FROM reviews
+    WHERE reviews.category LIKE '${category}'
+    ORDER BY ${sort_by} ${order};`
   );
   const reviewsWithFormattedDateAndRating = reviewsFromDB.rows.map(
     (reviewObject) => {
