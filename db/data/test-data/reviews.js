@@ -12,7 +12,7 @@ module.exports = [
     downvotes: 6,
     rating_count: 6666,
     rating_sum: 33330,
-    rating: 0,
+    rating: 1.0,
   },
   {
     title: "Max Payne",
@@ -27,7 +27,7 @@ module.exports = [
     downvotes: 62,
     rating_count: 2,
     rating_sum: 3,
-    rating: 0,
+    rating: 1.0,
   },
   {
     title: "Mass Effect",
@@ -57,7 +57,7 @@ module.exports = [
     downvotes: 51,
     rating_count: 0,
     rating_sum: 0,
-    rating: 0,
+    rating: 1.0,
   },
   {
     title: "Control",
@@ -72,7 +72,7 @@ module.exports = [
     downvotes: 346,
     rating_count: 0,
     rating_sum: 0,
-    rating: 0,
+    rating: 1.0,
   },
   {
     title: "Deliver Us the Moon",
@@ -87,7 +87,7 @@ module.exports = [
     downvotes: 62,
     rating_count: 0,
     rating_sum: 0,
-    rating: 0,
+    rating: 1.0,
   },
   {
     title: "The Elder Scrolls III: Morrowind",
@@ -111,6 +111,6 @@ module.exports = [
     downvotes: 61,
     rating_count: 15,
     rating_sum: 130,
-    rating: 0,
+    rating: 1.0,
   },
 ];

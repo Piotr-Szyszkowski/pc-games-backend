@@ -24,13 +24,16 @@ const getReviewById = (request, response, next) => {
 const patchReviewById = (request, response, next) => {
   const { review_id } = request.params;
   const { upvote } = request.body;
+  const { downvote } = request.body;
   // console.log(`patchReviewById firing!`);
   // console.log(
   //   `Upvote from req.body is: ${upvote}. Type of upvote is: ${typeof upvote}`
   // );
-  updateReviewById(review_id, upvote).then((updatedReviewFromModel) => {
-    response.status(200).send({ review: updatedReviewFromModel });
-  });
+  updateReviewById(review_id, upvote, downvote).then(
+    (updatedReviewFromModel) => {
+      response.status(200).send({ review: updatedReviewFromModel });
+    }
+  );
 };
 
 module.exports = { getReviews, getReviewById, patchReviewById };

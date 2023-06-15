@@ -290,6 +290,30 @@ describe(`PATCH /api/reviews/:review_id`, () => {
         });
       });
   });
+  it(`Downvote - Test 1 - Status: 200, should accept an object in the form {downvote: true} and increase the number of downvotes for the review by one. Should respond with complete review object updated with new downvote.`, () => {
+    return request(app)
+      .patch(`/api/reviews/2`)
+      .send({ downvote: true })
+      .expect(200)
+      .then((response) => {
+        expect(response.body.review).toEqual({
+          review_id: 2,
+          title: "Max Payne",
+          cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/875.jpg",
+          release_date: "2001-07-26",
+          category: "Action",
+          review_intro:
+            "Max Payne is an action game with a third person perspective (TPP), created by the Finnish studio Remedy Entertainment.",
+          review_body:
+            "Max Payne for PC, PS4, etc. is a third-person action thriller game. Remedy Entertainment, a studio from Finland, previously known mainly for the arcade racing game Death Rally from 1996, is responsible for creating the title. The original version of the game debuted in 2001 on PCs and sixth-generation consoles, and two years later, thanks to Mobius Entertainment, it received a greatly simplified conversion to the portable Game Boy Advance console. Eleven years after the premiere of the original, Max Payne Mobile, developed by the War Drum studio team, hit popular mobile devices, offering refreshed graphics, upgraded to HD standards. In the same year, as part of the PS2 Classics service, a digital re-edition of the original game from 2001 was made available to users of PlayStation 3 consoles. In spring 2016, Max Payne also went to PlayStation 4 owners, enriched with trophy support and graphics scaled to 1080p.",
+          upvotes: 7,
+          downvotes: 63,
+          rating_count: 2,
+          rating_sum: 3,
+          rating: 1.5,
+        });
+      });
+  });
 });
 
 /*********** ERROR HANDLERS ************/

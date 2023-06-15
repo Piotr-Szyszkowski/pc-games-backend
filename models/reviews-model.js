@@ -60,7 +60,11 @@ const selectReviewById = async (review_id) => {
   return theReview;
 };
 
-const updateReviewById = async (review_id, upvote = false) => {
+const updateReviewById = async (
+  review_id,
+  upvote = false,
+  downvote = false
+) => {
   // console.log(`updateReviewById firing!`);
   // console.log(
   //   `Upvote from controller is: ${upvote}. Type of upvote is: ${typeof upvote}`
@@ -77,6 +81,18 @@ const updateReviewById = async (review_id, upvote = false) => {
     reviewUpvoted.release_date = formatDate(reviewUpvoted.release_date);
     reviewUpvoted.rating = formatRating(reviewUpvoted.rating);
     return reviewUpvoted;
+  } else if (downvote) {
+    const downvoteQueryStr = format(
+      `UPDATE reviews SET downvotes = downvotes + 1
+    WHERE reviews.review_id = %L
+   RETURNING *;`,
+      review_id
+    );
+    const downvoteQuery = await db.query(downvoteQueryStr);
+    const reviewDownvoted = downvoteQuery.rows[0];
+    reviewDownvoted.release_date = formatDate(reviewDownvoted.release_date);
+    reviewDownvoted.rating = formatRating(reviewDownvoted.rating);
+    return reviewDownvoted;
   }
 };
 
