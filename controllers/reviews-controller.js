@@ -1,4 +1,8 @@
-const { selectReviews, selectReviewById } = require("../models/reviews-model");
+const {
+  selectReviews,
+  selectReviewById,
+  updateReviewById,
+} = require("../models/reviews-model");
 
 const getReviews = (request, response, next) => {
   const { category, order, sort_by } = request.query;
@@ -17,4 +21,16 @@ const getReviewById = (request, response, next) => {
   });
 };
 
-module.exports = { getReviews, getReviewById };
+const patchReviewById = (request, response, next) => {
+  const { review_id } = request.params;
+  const { upvote } = request.body;
+  // console.log(`patchReviewById firing!`);
+  // console.log(
+  //   `Upvote from req.body is: ${upvote}. Type of upvote is: ${typeof upvote}`
+  // );
+  updateReviewById(review_id, upvote).then((updatedReviewFromModel) => {
+    response.status(200).send({ review: updatedReviewFromModel });
+  });
+};
+
+module.exports = { getReviews, getReviewById, patchReviewById };

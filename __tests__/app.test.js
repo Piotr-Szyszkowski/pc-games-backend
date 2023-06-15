@@ -265,6 +265,32 @@ describe(`GET /api/reviews/:review_id`, () => {
       });
   });
 });
+describe(`PATCH /api/reviews/:review_id`, () => {
+  it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote.`, () => {
+    return request(app)
+      .patch(`/api/reviews/4`)
+      .send({ upvote: true })
+      .expect(200)
+      .then((response) => {
+        expect(response.body.review).toEqual({
+          review_id: 4,
+          title: "Duke Nukem 3D",
+          cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/1439.jpg",
+          release_date: "1996-05-13",
+          category: "FPS",
+          review_intro:
+            "One of the most famous first-person shooters and at the same time the third installment of the series about the adventures of an arrogant hero. The title focuses on dynamics and effectiveness, while also serving a lot of humor.",
+          review_body:
+            "Duke Nukem 3D is the third part of the series about an amazing prince fighting criminals, mafias and even terrifying aliens from outer space. Compared to the previous parts, made entirely in 2D, the game is a breakthrough, transferring the gameplay to a fully three-dimensional graphical environment and introducing the possibility of multiplayer games.",
+          upvotes: 99,
+          downvotes: 51,
+          rating_count: 0,
+          rating_sum: 0,
+          rating: 1.0,
+        });
+      });
+  });
+});
 
 /*********** ERROR HANDLERS ************/
 

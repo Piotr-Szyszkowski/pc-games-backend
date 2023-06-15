@@ -60,4 +60,24 @@ const selectReviewById = async (review_id) => {
   return theReview;
 };
 
-module.exports = { selectReviews, selectReviewById };
+const updateReviewById = async (review_id, upvote = false) => {
+  // console.log(`updateReviewById firing!`);
+  // console.log(
+  //   `Upvote from controller is: ${upvote}. Type of upvote is: ${typeof upvote}`
+  // );
+  if (upvote) {
+    const upvoteQueryStr = format(
+      `UPDATE reviews SET upvotes = upvotes + 1
+    WHERE reviews.review_id = %L
+   RETURNING *;`,
+      review_id
+    );
+    const upvoteQuery = await db.query(upvoteQueryStr);
+    const reviewUpvoted = upvoteQuery.rows[0];
+    reviewUpvoted.release_date = formatDate(reviewUpvoted.release_date);
+    reviewUpvoted.rating = formatRating(reviewUpvoted.rating);
+    return reviewUpvoted;
+  }
+};
+
+module.exports = { selectReviews, selectReviewById, updateReviewById };
