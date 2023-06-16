@@ -105,7 +105,7 @@ describe("GET /api/reviews", () => {
             rating_sum === 0
               ? 1.0
               : Number(
-                  rating_count === 0 ? 0 : rating_sum / rating_count
+                  rating_count === 0 ? 1.0 : rating_sum / rating_count
                 ).toFixed(1)
           );
           expect(rating).toEqual(expectedRating);
@@ -145,6 +145,7 @@ describe("GET /api/reviews", () => {
       .then((response) => {
         const returnedAllReviewArray = response.body.reviews;
         returnedAllReviewArray.forEach((review) => {
+          // console.log(`Rating sum type is: ${typeof review.rating_sum}`);
           expect(review.rating_sum).toEqual(expect.any(Number));
           expect(review.rating_sum).toBeGreaterThanOrEqual(0);
         });
@@ -311,6 +312,30 @@ describe(`PATCH /api/reviews/:review_id`, () => {
           rating_count: 2,
           rating_sum: 3,
           rating: 1.5,
+        });
+      });
+  });
+  it(`SubmitRating - Test 1 - Status: 200, should accept an object in the form like {givenRating: 7.5} and add it to the rating_sum and increment rating_count by 1, from which then rating is calculated. Should then return a review object with updated rating.`, () => {
+    return request(app)
+      .patch(`/api/reviews/3`)
+      .send({ givenRating: 7.5 })
+      .expect(200)
+      .then((response) => {
+        expect(response.body.review).toEqual({
+          review_id: 3,
+          title: "Mass Effect",
+          cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/2049.jpg",
+          release_date: "2008-05-28",
+          category: "RPG",
+          review_intro:
+            "An action RPG set in the convention of science fiction, developed by the BioWare studio team - authors of such cult titles as Baldur's Gate and Neverwinter Nights.",
+          review_body:
+            "Mass Effect is an extensive RPG production with numerous elements of an action game, prepared by employees of BioWare studio (creators of the popular and recognized series Baldur's Gate, Neverwinter Nights and Star Wars: Knights of the Old Republic). It is also the first part of a trilogy of games. The action of the game takes place in the year 2183, when humanity spread throughout the galaxy and was forced to cooperate and fight with alien civilizations for its place in the universe. Players assume the role of Commander Shepard, the first human Specter - sworn defender of peace. His main task is to stop the attacking armies of the former agent Saren, who opposed the established order and wants to take revenge on the human race. Together with the entire team under command, players will travel through a series of unknown worlds. During the expedition, they discover that the real threat is much more serious than previously thought...",
+          upvotes: 80,
+          downvotes: 34,
+          rating_count: 5,
+          rating_sum: 22.5,
+          rating: 4.5,
         });
       });
   });

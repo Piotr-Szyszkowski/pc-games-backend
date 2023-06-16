@@ -23,13 +23,13 @@ const getReviewById = (request, response, next) => {
 
 const patchReviewById = (request, response, next) => {
   const { review_id } = request.params;
-  const { upvote } = request.body;
-  const { downvote } = request.body;
+  const { upvote, downvote, givenRating } = request.body;
+
   // console.log(`patchReviewById firing!`);
   // console.log(
-  //   `Upvote from req.body is: ${upvote}. Type of upvote is: ${typeof upvote}`
+  //   `givenRating from req.body is: ${givenRating}. Type of upvote is: ${typeof givenRating}`
   // );
-  updateReviewById(review_id, upvote, downvote).then(
+  updateReviewById(review_id, upvote, downvote, givenRating).then(
     (updatedReviewFromModel) => {
       response.status(200).send({ review: updatedReviewFromModel });
     }

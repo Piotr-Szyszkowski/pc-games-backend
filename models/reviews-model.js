@@ -39,6 +39,7 @@ const selectReviews = async (
     (reviewObject) => {
       reviewObject.release_date = formatDate(reviewObject.release_date);
       reviewObject.rating = formatRating(reviewObject.rating);
+      reviewObject.rating_sum = formatRating(reviewObject.rating_sum);
       return reviewObject;
     }
   );
@@ -52,10 +53,11 @@ const selectReviewById = async (review_id) => {
   );
   const reviewByIdRaw = await db.query(queryString);
   const theReview = reviewByIdRaw.rows[0];
-  console.log(theReview.release_date);
+  // console.log(theReview.release_date);
 
   theReview.release_date = formatDate(theReview.release_date);
   theReview.rating = formatRating(theReview.rating);
+  theReview.rating_sum = formatRating(theReview.rating_sum);
 
   return theReview;
 };
@@ -63,7 +65,8 @@ const selectReviewById = async (review_id) => {
 const updateReviewById = async (
   review_id,
   upvote = false,
-  downvote = false
+  downvote = false,
+  givenRating = null
 ) => {
   // console.log(`updateReviewById firing!`);
   // console.log(
@@ -80,6 +83,7 @@ const updateReviewById = async (
     const reviewUpvoted = upvoteQuery.rows[0];
     reviewUpvoted.release_date = formatDate(reviewUpvoted.release_date);
     reviewUpvoted.rating = formatRating(reviewUpvoted.rating);
+    reviewUpvoted.rating_sum = formatRating(reviewUpvoted.rating_sum);
     return reviewUpvoted;
   } else if (downvote) {
     const downvoteQueryStr = format(
@@ -92,7 +96,44 @@ const updateReviewById = async (
     const reviewDownvoted = downvoteQuery.rows[0];
     reviewDownvoted.release_date = formatDate(reviewDownvoted.release_date);
     reviewDownvoted.rating = formatRating(reviewDownvoted.rating);
+    reviewDownvoted.rating_sum = formatRating(reviewDownvoted.rating_sum);
     return reviewDownvoted;
+  } else if (givenRating) {
+    // console.log(typeof givenRating);
+    // console.log(typeof review_id);
+    const updateRatingSumAndCountQueryStr = format(
+      `UPDATE reviews SET 
+    rating_count = rating_count + 1,
+    rating_sum = rating_sum + $1
+     WHERE reviews.review_id = %L`,
+      [givenRating, review_id]
+    );
+    const updateAndRetrieveRatingQueryStr = format(
+      `UPDATE reviews SET
+    rating = rating_sum / rating_count
+    WHERE reviews.review_id = $1
+    RETURNING *;`,
+      review_id
+    );
+    const queryOne = await db.query(
+      `UPDATE reviews SET 
+    rating_count = rating_count + 1,
+    rating_sum = rating_sum + $1
+     WHERE reviews.review_id = $2`,
+      [givenRating, review_id]
+    );
+    const queryTwo = await db.query(
+      `UPDATE reviews SET
+    rating = rating_sum / rating_count
+    WHERE reviews.review_id = $1
+    RETURNING *;`,
+      [review_id]
+    );
+    const updatedReview = queryTwo.rows[0];
+    updatedReview.release_date = formatDate(updatedReview.release_date);
+    updatedReview.rating = formatRating(updatedReview.rating);
+    updatedReview.rating_sum = formatRating(updatedReview.rating_sum);
+    return updatedReview;
   }
 };
 

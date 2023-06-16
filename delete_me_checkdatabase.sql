@@ -8,3 +8,12 @@ SELECT * FROM reviews;
 --   WHERE reviews.review_id = 4
 -- RETURNING *;
 -- WHERE category = 'RPG';
+
+-- UPDATE reviews SET 
+-- rating_count = rating_count + 1,
+-- rating_sum = rating_sum + 7.5
+--  WHERE reviews.review_id = 3;
+-- UPDATE reviews SET
+-- rating = rating_sum / rating_count
+-- WHERE reviews.review_id = 3
+-- RETURNING *;
