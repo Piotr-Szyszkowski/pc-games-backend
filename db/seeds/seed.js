@@ -19,6 +19,15 @@ const seed = ({ categoryData, userData, reviewData }) => {
       return db.query(categoryQueryStrForInsert);
     })
     .then(() => {
+      const userQueryStrForInsert = format(
+        `INSERT INTO users(username, avatar_url) VALUES %L;`,
+        userData.map(({ username, avatar_url }) => {
+          return [username, avatar_url];
+        })
+      );
+      return db.query(userQueryStrForInsert);
+    })
+    .then(() => {
       const reviewQueryStrForInsert = format(
         `INSERT INTO reviews (title, cover_img, release_date, category, review_intro, review_body, upvotes, downvotes, rating_count,  rating_sum, rating)
       VALUES %L;`,
