@@ -2,7 +2,7 @@ const { createTables, dropTables } = require("../manage-tables.js");
 const format = require("pg-format");
 const db = require("../connection");
 
-const seed = ({ categoryData, reviewData }) => {
+const seed = ({ categoryData, userData, reviewData }) => {
   return dropTables()
     .then(() => {
       return createTables();

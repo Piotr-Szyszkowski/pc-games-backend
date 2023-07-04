@@ -8,6 +8,12 @@ const createTables = () => {
   );`
     )
     .then(() => {
+      return db.query(`CREATE TABLE users (
+        username VARCHAR PRIMARY KEY NOT NULL,
+        avatar_url VARCHAR
+    );`);
+    })
+    .then(() => {
       return db.query(`CREATE TABLE reviews (
     review_id SERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
@@ -26,9 +32,14 @@ const createTables = () => {
 };
 
 const dropTables = () => {
-  return db.query(`DROP TABLE IF EXISTS reviews;`).then(() => {
-    return db.query(`DROP TABLE IF EXISTS categories;`);
-  });
+  return db
+    .query(`DROP TABLE IF EXISTS reviews;`)
+    .then(() => {
+      return db.query(`DROP TABLE IF EXISTS users;`);
+    })
+    .then(() => {
+      return db.query(`DROP TABLE IF EXISTS categories;`);
+    });
 };
 
 module.exports = { createTables, dropTables };
