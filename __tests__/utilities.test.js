@@ -1,5 +1,6 @@
 const formatDate = require("../db/utilities/format-date");
 const formatRating = require("../db/utilities/format-rating");
+const reviewsInsertedBySeed = require("./reviewsInsertedBySeed");
 
 describe(`formatDate()`, () => {
   it("should take date string with time in long format and return just the date string", () => {
@@ -25,4 +26,8 @@ describe(`formatRating()`, () => {
     expect(formatRating(testRating2)).toEqual(3.5);
     expect(formatRating(testRating3)).toEqual(10.0);
   });
+});
+
+describe(`createRefObjectForCommentReviewId()`, () => {
+  console.log(reviewsInsertedBySeed);
 });
