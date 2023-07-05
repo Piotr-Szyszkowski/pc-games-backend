@@ -1,5 +1,8 @@
 const formatDate = require("../db/utilities/format-date");
 const formatRating = require("../db/utilities/format-rating");
+const {
+  createRefObjectForReview,
+} = require("../db/utilities/reviewCommentFormatting");
 const reviewsInsertedBySeed = require("./reviewsInsertedBySeed");
 
 describe(`formatDate()`, () => {
@@ -28,6 +31,10 @@ describe(`formatRating()`, () => {
   });
 });
 
-describe(`createRefObjectForCommentReviewId()`, () => {
-  console.log(reviewsInsertedBySeed);
+describe(`createRefObjectForReview()`, () => {
+  it(`Will take an array of (review) objects and return an object`, () => {
+    expect(typeof createRefObjectForReview(reviewsInsertedBySeed)).toBe(
+      "object"
+    );
+  });
 });
