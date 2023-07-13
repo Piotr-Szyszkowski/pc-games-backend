@@ -65,10 +65,10 @@ const seed = ({ categoryData, userData, reviewData }) => {
         )
       );
       return db.query(reviewQueryStrForInsert);
-    })
-    .then((dataInsertedInReviews) => {
-      console.log(dataInsertedInReviews);
     });
+  // .then((dataInsertedInReviews) => {
+  //   console.log(dataInsertedInReviews);
+  // });
 };
 
 module.exports = seed;

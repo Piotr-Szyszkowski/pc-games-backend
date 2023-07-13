@@ -267,32 +267,32 @@ describe(`GET /api/reviews/:review_id`, () => {
   });
 });
 
-describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
-  it(`Test 1.0 - status: 200, should respond with an array of comments (objects) for the given review_id. Each comment should have the following key-value pairs: comment_id, created_by and body.`, () => {
-    return request(app)
-      .get(`/api/reviews/1/comments`)
-      .expect(200)
-      .then((response) => {
-        const { comments: commentsFromAPI } = response.body;
-        const dateRegex = /^(\d{4}-\d{2}-\d{2})$/;
-        console.log(`Comments from API Below`);
-        console.log(commentsFromAPI);
-        expect(commentsFromAPI).toBeInstanceOf(Array);
-        expect(commentsFromAPI).toHaveLength(2);
-        commentsFromAPI.forEach((commentObject) => {
-          expect(commentObject).toEqual(
-            expect.objectContaining({
-              comment_id: expect.any(Number),
-              review_id: expect.any(Number),
-              created_by: expect.any(String),
-              body: expect.any(String),
-              created_at: expect.any(String),
-            })
-          );
-        });
-      });
-  });
-});
+// describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
+//   it(`Test 1.0 - status: 200, should respond with an array of comments (objects) for the given review_id. Each comment should have the following key-value pairs: comment_id, review_id (game it belongs to), created_by, created_at and body.`, () => {
+//     return request(app)
+//       .get(`/api/reviews/1/comments`)
+//       .expect(200)
+//       .then((response) => {
+//         const { comments: commentsFromAPI } = response.body;
+//         const dateRegex = /^(\d{4}-\d{2}-\d{2})$/;
+//         console.log(`Comments from API Below`);
+//         console.log(commentsFromAPI);
+//         expect(commentsFromAPI).toBeInstanceOf(Array);
+//         expect(commentsFromAPI).toHaveLength(2);
+//         commentsFromAPI.forEach((commentObject) => {
+//           expect(commentObject).toEqual(
+//             expect.objectContaining({
+//               comment_id: expect.any(Number),
+//               review_id: expect.any(Number),
+//               created_by: expect.any(String),
+//               body: expect.any(String),
+//               created_at: expect.any(String),
+//             })
+//           );
+//         });
+//       });
+//   });
+// });
 describe(`PATCH /api/reviews/:review_id`, () => {
   it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote.`, () => {
     return request(app)

@@ -10,5 +10,23 @@
 // const dn = Date.now();
 // console.log(formatDate(dOld));
 
-const rawDate = 1688296359000;
-console.log(new Date(rawDate).toISOString());
+// const rawDate = 1688296359000;
+// console.log(new Date(rawDate).toISOString());
+
+// for (let i = 0; i < 5; i++) {
+//   setTimeout(function () {
+//     console.log(i);
+//   }, 1000);
+// }
+
+for (var i = 0; i < 5; i++) {
+  (function (index) {
+    setTimeout(function () {
+      console.log(index);
+    }, 1000);
+  })(i);
+}
+
+// (function (text) {
+//   console.log(text);
+// })(`Ma text`);

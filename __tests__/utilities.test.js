@@ -3,7 +3,7 @@ const formatRating = require("../db/utilities/format-rating");
 const {
   createRefObjectForReview,
 } = require("../db/utilities/reviewCommentFormatting");
-const reviewsInsertedBySeed = require("./reviewsInsertedBySeed");
+const reviewsInsertedBySeed = require("../additional_test_data/reviewsInsertedBySeed");
 
 describe(`formatDate()`, () => {
   it("should take date string with time in long format and return just the date string", () => {
