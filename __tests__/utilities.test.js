@@ -2,8 +2,19 @@ const formatDate = require("../db/utilities/format-date");
 const formatRating = require("../db/utilities/format-rating");
 const {
   createRefObjectForReview,
+  swapTitleWithId,
 } = require("../db/utilities/reviewCommentFormatting");
 const reviewsInsertedBySeed = require("../additional_test_data/reviewsInsertedBySeed");
+
+const expectedRefObject = {
+  "Doom (1993)": 1,
+  "Max Payne": 2,
+  "Mass Effect": 3,
+  "Duke Nukem 3D": 4,
+  Control: 5,
+  "Deliver Us the Moon": 6,
+  "The Elder Scrolls III: Morrowind": 7,
+};
 
 describe(`formatDate()`, () => {
   it("should take date string with time in long format and return just the date string", () => {
@@ -62,15 +73,26 @@ describe(`createRefObjectForReview()`, () => {
   });
   it(`When passed an array of multiple review objects, it should return an object with multiple, respective key-value pairs: "Title"(string): review_id(number)`, () => {
     const testInputArray = [...reviewsInsertedBySeed];
-    const expectedRefObject = {
-      "Doom (1993)": 1,
-      "Max Payne": 2,
-      "Mass Effect": 3,
-      "Duke Nukem 3D": 4,
-      Control: 5,
-      "Deliver Us the Moon": 6,
-      "The Elder Scrolls III: Morrowind": 7,
-    };
     expect(createRefObjectForReview(testInputArray)).toEqual(expectedRefObject);
+  });
+});
+
+describe(`swapTitleWithId(refObject, reviewArray)`, () => {
+  it(`Takes a reference object, and an array of comment objects as the two arguments. Should return an array of comment objects with belongs_to replaced by review_id, that should correspond to the game title on the ref. object`, () => {
+    const testInputArray = [
+      {
+        body: "Brings back memories. Best FPS of all times. Loads of action and fantastic atmosphere",
+        belongs_to: "Mass Effect",
+        created_by: "Witcheroo",
+      },
+      {
+        body: `First FPS I've ever played. That's what got me into competitive gaming career later in my life. Thank you ID Software!`,
+        belongs_to: "Duke Nukem 3D",
+        created_by: "DarkFather",
+      },
+    ];
+    const outputArray = swapTitleWithId(expectedRefObject, testInputArray);
+    expect(outputArray[0].review_id).toEqual(3);
+    expect(outputArray[1].review_id).toEqual(4);
   });
 });

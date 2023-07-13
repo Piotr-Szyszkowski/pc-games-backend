@@ -8,4 +8,21 @@ const createRefObjectForReview = (reviewsArray) => {
   return refObject;
 };
 
-module.exports = { createRefObjectForReview };
+const swapTitleWithId = (refObject, rawCommentArray) => {
+  console.log(refObject);
+  console.log(rawCommentArray);
+  const swapSingleTitleWithId = (rawCommentObj) => {
+    const { belongs_to, ...resoOfRawCommentObj } = rawCommentObj;
+    const formattedCommentObj = {
+      review_id: refObject[belongs_to],
+      ...resoOfRawCommentObj,
+    };
+    return formattedCommentObj;
+  };
+
+  const formattedCommentArray = rawCommentArray.map(swapSingleTitleWithId);
+
+  return formattedCommentArray;
+};
+
+module.exports = { createRefObjectForReview, swapTitleWithId };

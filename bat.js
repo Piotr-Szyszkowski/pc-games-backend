@@ -30,3 +30,5 @@ for (var i = 0; i < 5; i++) {
 // (function (text) {
 //   console.log(text);
 // })(`Ma text`);
+
+console.log(new Date(1688464743243).toISOString());
