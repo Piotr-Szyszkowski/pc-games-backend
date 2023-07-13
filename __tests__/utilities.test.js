@@ -77,22 +77,27 @@ describe(`createRefObjectForReview()`, () => {
   });
 });
 
-describe(`swapTitleWithId(refObject, reviewArray)`, () => {
-  it(`Takes a reference object, and an array of comment objects as the two arguments. Should return an array of comment objects with belongs_to replaced by review_id, that should correspond to the game title on the ref. object`, () => {
+describe(`swapTitleWithId(refObject, rawCommentArray)`, () => {
+  it(`Test 1.0 - Takes a reference object, and an array of comment objects as the two arguments. Should return an array of comment objects with belongs_to replaced by review_id, that should correspond to the game title on the ref. object`, () => {
     const testInputArray = [
       {
         body: "Brings back memories. Best FPS of all times. Loads of action and fantastic atmosphere",
         belongs_to: "Mass Effect",
         created_by: "Witcheroo",
+        created_at: 1685747799000,
       },
       {
         body: `First FPS I've ever played. That's what got me into competitive gaming career later in my life. Thank you ID Software!`,
         belongs_to: "Duke Nukem 3D",
         created_by: "DarkFather",
+        created_at: 1685747799000,
       },
     ];
     const outputArray = swapTitleWithId(expectedRefObject, testInputArray);
     expect(outputArray[0].review_id).toEqual(3);
     expect(outputArray[1].review_id).toEqual(4);
+  });
+  it(`Test 1.1 - returned comment objects should have all the previous properties, apart from id swapped and a correctly formatted date`, () => {
+    // const outputArray = swapTitleWithId(expectedRefObject);
   });
 });
