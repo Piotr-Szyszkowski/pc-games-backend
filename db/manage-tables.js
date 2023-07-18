@@ -33,7 +33,7 @@ const createTables = () => {
       return db.query(`CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
     review_id INT REFERENCES reviews(review_id) NOT NULL,
-    created_by VARCHAR NOT NULL,
+    created_by VARCHAR REFERENCES users(username),
     body VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT now()
     );`);
