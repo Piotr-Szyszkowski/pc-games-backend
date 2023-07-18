@@ -9,12 +9,13 @@ const createRefObjectForReview = (reviewsArray) => {
 };
 
 const swapTitleWithId = (refObject, rawCommentArray) => {
-  console.log(refObject);
-  console.log(rawCommentArray);
+  // console.log(refObject);
+  // console.log(rawCommentArray);
   const swapSingleTitleWithId = (rawCommentObj) => {
-    const { belongs_to, ...resoOfRawCommentObj } = rawCommentObj;
+    const { belongs_to, created_at, ...resoOfRawCommentObj } = rawCommentObj;
     const formattedCommentObj = {
       review_id: refObject[belongs_to],
+      created_at: new Date(rawCommentObj.created_at).toISOString(),
       ...resoOfRawCommentObj,
     };
     return formattedCommentObj;

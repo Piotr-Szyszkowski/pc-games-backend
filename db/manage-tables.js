@@ -28,12 +28,24 @@ const createTables = () => {
     rating_sum DECIMAL DEFAULT 0 NOT NULL,
     rating DECIMAL DEFAULT 1.0 NOT NULL
 );`);
+    })
+    .then(() => {
+      return db.query(`CREATE TABLE comments (
+    comment_id SERIAL PRIMARY KEY,
+    review_id INT REFERENCES reviews(review_id) NOT NULL,
+    created_by VARCHAR NOT NULL,
+    body VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT now()
+    );`);
     });
 };
 
 const dropTables = () => {
   return db
-    .query(`DROP TABLE IF EXISTS reviews;`)
+    .query(`DROP TABLE IF EXISTS comments;`)
+    .then(() => {
+      return db.query(`DROP TABLE IF EXISTS reviews;`);
+    })
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS users;`);
     })

@@ -19,13 +19,13 @@
 //   }, 1000);
 // }
 
-for (var i = 0; i < 5; i++) {
-  (function (index) {
-    setTimeout(function () {
-      console.log(index);
-    }, 1000);
-  })(i);
-}
+// for (var i = 0; i < 5; i++) {
+//   (function (index) {
+//     setTimeout(function () {
+//       console.log(index);
+//     }, 1000);
+//   })(i);
+// }
 
 // (function (text) {
 //   console.log(text);

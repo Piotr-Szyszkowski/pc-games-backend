@@ -27,4 +27,4 @@
 --  ('ToryTiller', 'https://i.kinja-img.com/gawker-media/image/upload/c_fit,f_auto,g_center,q_60,w_645/a57c78bc678d1a158a9eed3c52f6b77d.jpg')
 --   RETURNING *;
 -- DROP TABLE IF EXISTS users;
-SELECT * FROM reviews;
+SELECT * FROM comments;

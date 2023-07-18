@@ -1,8 +1,12 @@
 const { createTables, dropTables } = require("../manage-tables.js");
 const format = require("pg-format");
 const db = require("../connection");
+const {
+  createRefObjectForReview,
+  swapTitleWithId,
+} = require("../utilities/reviewCommentFormatting.js");
 
-const seed = ({ categoryData, userData, reviewData }) => {
+const seed = ({ categoryData, userData, reviewData, commentData }) => {
   return dropTables()
     .then(() => {
       return createTables();
@@ -65,10 +69,21 @@ const seed = ({ categoryData, userData, reviewData }) => {
         )
       );
       return db.query(reviewQueryStrForInsert);
+    })
+    .then((dataInsertedInReviews) => {
+      const insertedReviews = dataInsertedInReviews.rows;
+      const refObject = createRefObjectForReview(insertedReviews);
+      const formattedCommentData = swapTitleWithId(refObject, commentData);
+      const commentQueryStrForInsert = format(
+        `INSERT INTO comments(review_id, created_by, body, created_at) VALUES %L RETURNING *;`,
+        formattedCommentData.map(
+          ({ review_id, created_by, body, created_at }) => {
+            return [review_id, created_by, body, created_at];
+          }
+        )
+      );
+      return db.query(commentQueryStrForInsert);
     });
-  // .then((dataInsertedInReviews) => {
-  //   console.log(dataInsertedInReviews);
-  // });
 };
 
 module.exports = seed;

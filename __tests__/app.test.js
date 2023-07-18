@@ -7,6 +7,7 @@ const testData = require("../db/data/test-data/index");
 const seed = require("../db/seeds/seed");
 const endpoints = require(`../all-endpoints`);
 const allCategories = require("../db/data/test-data/categories");
+const dateAndTimeRegEx = /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})$/;
 
 beforeEach(() => {
   return seed(testData);
@@ -274,8 +275,8 @@ describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
       .expect(200)
       .then((response) => {
         const { comments: commentsFromAPI } = response.body;
-        console.log(`Comments from API Below`);
-        console.log(commentsFromAPI);
+        // console.log(`Comments from API Below`);
+        // console.log(commentsFromAPI);
         expect(commentsFromAPI).toBeInstanceOf(Array);
         expect(commentsFromAPI).toHaveLength(2);
         commentsFromAPI.forEach((commentObject) => {
@@ -285,7 +286,7 @@ describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
               review_id: expect.any(Number),
               created_by: expect.any(String),
               body: expect.any(String),
-              created_at: expect.any(String),
+              created_at: expect.stringMatching(dateAndTimeRegEx),
             })
           );
         });
