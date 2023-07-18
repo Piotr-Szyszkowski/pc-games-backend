@@ -26,4 +26,7 @@ const swapTitleWithId = (refObject, rawCommentArray) => {
   return formattedCommentArray;
 };
 
-module.exports = { createRefObjectForReview, swapTitleWithId };
+module.exports = {
+  createRefObjectForReview,
+  swapTitleWithId,
+};

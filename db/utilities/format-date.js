@@ -4,4 +4,10 @@ const formatDate = (date) => {
   return shortString;
 };
 
-module.exports = formatDate;
+const formatDateAndTime = (uglyDateStr) => {
+  const date = uglyDateStr.slice(0, 10);
+  const time = uglyDateStr.slice(11, 19);
+  return `${date} ${time}`;
+};
+
+module.exports = { formatDate, formatDateAndTime };

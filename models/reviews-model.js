@@ -1,6 +1,6 @@
 const db = require("../db/connection");
 const format = require("pg-format");
-const formatDate = require("../db/utilities/format-date.js");
+const { formatDate } = require("../db/utilities/format-date.js");
 const formatRating = require("../db/utilities/format-rating");
 
 const selectReviews = async (

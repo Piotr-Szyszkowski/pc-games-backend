@@ -1,4 +1,7 @@
-const formatDate = require("../db/utilities/format-date");
+const {
+  formatDate,
+  formatDateAndTime,
+} = require("../db/utilities/format-date");
 const formatRating = require("../db/utilities/format-rating");
 const {
   createRefObjectForReview,
@@ -114,5 +117,14 @@ describe(`swapTitleWithId(refObject, rawCommentArray)`, () => {
       },
     ];
     expect(outputArray).toEqual(expectedFormattedArray);
+  });
+});
+
+describe(`formatDateAndTime()`, () => {
+  it(`Test 1.0 - Should accept a long timestamp string and return a nicely formatted Date & Time string`, () => {
+    const testRawDate1 = new Date("2023-07-05T11:25:16.332Z").toISOString();
+    const testRawDate2 = new Date("2023-06-02T10:12:39.000Z").toISOString();
+    expect(formatDateAndTime(testRawDate1)).toEqual("2023-07-05 11:25:16");
+    expect(formatDateAndTime(testRawDate2)).toEqual("2023-06-02 10:12:39");
   });
 });

@@ -275,8 +275,7 @@ describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
       .expect(200)
       .then((response) => {
         const { comments: commentsFromAPI } = response.body;
-        // console.log(`Comments from API Below`);
-        // console.log(commentsFromAPI);
+
         expect(commentsFromAPI).toBeInstanceOf(Array);
         expect(commentsFromAPI).toHaveLength(2);
         commentsFromAPI.forEach((commentObject) => {
