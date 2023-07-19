@@ -1,5 +1,3 @@
-console.log("*** app.test.js file firing up! ***");
-
 const db = require(`../db/connection.js`);
 const app = require("../app.js");
 const request = require("supertest");
@@ -58,11 +56,23 @@ describe("REVIEWS - GET /api/reviews", () => {
               category: expect.any(String),
               review_intro: expect.any(String),
               review_body: expect.any(String),
+              comment_count: expect.any(Number),
             })
           );
         });
       });
   });
+
+  it(`each review objects should have comment count property, which would represent up-to-date number of comments for given title`, () => {
+    return request(app)
+      .get("/api/reviews")
+      .expect(200)
+      .then((response) => {
+        const reviewForMassEffect1 = response.body.reviews[2];
+        expect(reviewForMassEffect1.comment_count).toBe(3);
+      });
+  });
+
   it(`each review objects should have "upvotes" and "downvotes" property which would be a number`, () => {
     return request(app)
       .get("/api/reviews")

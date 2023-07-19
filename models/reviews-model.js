@@ -31,7 +31,9 @@ const selectReviews = async (
   }
 
   const reviewsFromDB = await db.query(
-    `SELECT * FROM reviews
+    `SELECT reviews.*,
+      (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count
+    FROM reviews
     WHERE reviews.category LIKE '${category}'
     ORDER BY ${sort_by} ${order};`
   );
