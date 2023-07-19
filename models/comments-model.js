@@ -13,10 +13,30 @@ const selectComments = async (review_id) => {
       created_at: formatDateAndTime(createdAtString),
       ...restOfComment,
     };
-    console.log(formattedCommentObj);
     return formattedCommentObj;
   });
   return formattedCommentsFromDB;
 };
 
-module.exports = { selectComments };
+const insertComments = async (review_id, newComment) => {
+  const { username, comment_body } = newComment;
+
+  return db
+    .query(
+      `INSERT INTO comments (review_id, created_by, body)
+  VALUES ($1, $2, $3)
+  RETURNING *;`,
+      [review_id, username, comment_body]
+    )
+    .then((dbResponse) => {
+      const { created_at, ...restOfRawComment } = dbResponse.rows[0];
+      const createdAtString = new Date(created_at).toISOString();
+      const formattedAddedComment = {
+        created_at: formatDateAndTime(createdAtString),
+        ...restOfRawComment,
+      };
+      return formattedAddedComment;
+    });
+};
+
+module.exports = { selectComments, insertComments };

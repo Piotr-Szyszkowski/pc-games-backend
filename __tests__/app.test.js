@@ -268,30 +268,6 @@ describe(`GET /api/reviews/:review_id`, () => {
   });
 });
 
-describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
-  it(`Test 1.0 - status: 200, should respond with an array of comments (objects) for the given review_id. Each comment should have the following key-value pairs: comment_id, review_id (game it belongs to), created_by, created_at and body.`, () => {
-    return request(app)
-      .get(`/api/reviews/1/comments`)
-      .expect(200)
-      .then((response) => {
-        const { comments: commentsFromAPI } = response.body;
-
-        expect(commentsFromAPI).toBeInstanceOf(Array);
-        expect(commentsFromAPI).toHaveLength(2);
-        commentsFromAPI.forEach((commentObject) => {
-          expect(commentObject).toEqual(
-            expect.objectContaining({
-              comment_id: expect.any(Number),
-              review_id: expect.any(Number),
-              created_by: expect.any(String),
-              body: expect.any(String),
-              created_at: expect.stringMatching(dateAndTimeRegEx),
-            })
-          );
-        });
-      });
-  });
-});
 describe(`PATCH /api/reviews/:review_id`, () => {
   it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote.`, () => {
     return request(app)
@@ -367,6 +343,53 @@ describe(`PATCH /api/reviews/:review_id`, () => {
   });
 });
 
+describe(`COMMENTS - GET /api/reviews/:review_id/comments`, () => {
+  it(`Test 1.0 - status: 200, should respond with an array of comments (objects) for the given review_id. Each comment should have the following key-value pairs: comment_id, review_id (game it belongs to), created_by, created_at and body.`, () => {
+    return request(app)
+      .get(`/api/reviews/1/comments`)
+      .expect(200)
+      .then((response) => {
+        const { comments: commentsFromAPI } = response.body;
+
+        expect(commentsFromAPI).toBeInstanceOf(Array);
+        expect(commentsFromAPI).toHaveLength(2);
+        commentsFromAPI.forEach((commentObject) => {
+          expect(commentObject).toEqual(
+            expect.objectContaining({
+              comment_id: expect.any(Number),
+              review_id: expect.any(Number),
+              created_by: expect.any(String),
+              body: expect.any(String),
+              created_at: expect.stringMatching(dateAndTimeRegEx),
+            })
+          );
+        });
+      });
+  });
+});
+
+describe(`COMMENTS - POST /api/reviews/:review_id/comments`, () => {
+  it(`Test 1.0 - status 201, request body accepts new comment's username (author) and body, and responds with the posted comment`, () => {
+    const newMaxPayneComment = {
+      username: `ToryTiller`,
+      comment_body: `Max Payne 1 was a fantastic game that captivated me with its gripping noir storyline and innovative bullet-time mechanics. The dark atmosphere and gritty narrative kept me engaged throughout the experience. However, playing it now, the outdated graphics and clunky controls remind me of its age. `,
+    };
+    return request(app)
+      .post(`/api/reviews/2/comments`)
+      .send(newMaxPayneComment)
+      .expect(201)
+      .then((response) => {
+        // const addedComment = response.body.comment;
+        const { comment_id, review_id, created_by, body, created_at } =
+          response.body.comment;
+        expect(comment_id).toBe(7);
+        expect(review_id).toBe(2);
+        expect(created_by).toBe(`ToryTiller`);
+        expect(body).toEqual(newMaxPayneComment.comment_body);
+        expect(created_at).toMatch(dateAndTimeRegEx);
+      });
+  });
+});
 /*********** ERROR HANDLERS ************/
 
 describe(`ERRORS: Non-existent routes`, () => {

@@ -1,4 +1,4 @@
-const { selectComments } = require("../models/comments-model");
+const { selectComments, insertComments } = require("../models/comments-model");
 
 const getComments = (request, response, next) => {
   const { review_id } = request.params;
@@ -7,4 +7,12 @@ const getComments = (request, response, next) => {
   });
 };
 
-module.exports = { getComments };
+const postComments = (request, response, next) => {
+  const { review_id } = request.params;
+  const newComment = request.body;
+  insertComments(review_id, newComment).then((comment) => {
+    response.status(201).send({ comment });
+  });
+};
+
+module.exports = { getComments, postComments };
