@@ -251,7 +251,7 @@ describe("REVIEWS - GET /api/reviews", () => {
   });
 });
 
-describe(`GET /api/reviews/:review_id`, () => {
+describe(`REVIEW - GET /api/reviews/:review_id`, () => {
   it(`Status: 200 - should return a single review object with matching review_id`, () => {
     return request(app)
       .get(`/api/reviews/3`)
@@ -277,7 +277,7 @@ describe(`GET /api/reviews/:review_id`, () => {
   });
 });
 
-describe(`PATCH /api/reviews/:review_id`, () => {
+describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
   it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote.`, () => {
     return request(app)
       .patch(`/api/reviews/4`)
@@ -399,6 +399,7 @@ describe(`COMMENTS - POST /api/reviews/:review_id/comments`, () => {
       });
   });
 });
+
 /*********** ERROR HANDLERS ************/
 
 describe(`ERRORS: Non-existent routes`, () => {
