@@ -17,7 +17,7 @@ afterAll(() => {
   return db.end();
 });
 
-describe(`GET /api`, () => {
+describe(`API - GET /api`, () => {
   it(`responds with status: 200 and a JSON describing all the endpoints in the API`, () => {
     return request(app)
       .get("/api")
@@ -28,7 +28,7 @@ describe(`GET /api`, () => {
   });
 });
 
-describe(`GET /api/categories`, () => {
+describe(`CATEGORIES - GET /api/categories`, () => {
   it("should return status: 200, and an array of all category objects", () => {
     return request(app)
       .get("/api/categories")
@@ -39,7 +39,7 @@ describe(`GET /api/categories`, () => {
   });
 });
 
-describe("GET /api/reviews", () => {
+describe("REVIEWS - GET /api/reviews", () => {
   it("should respond with status:200, and should respond with an array review objects each of which should have following properties:review_id, title, release_date, category, review_intro, review_body", () => {
     return request(app)
       .get("/api/reviews")
@@ -79,7 +79,6 @@ describe("GET /api/reviews", () => {
         });
       });
   });
-
   it(`Rating - Test 1 - Review objects should have a "rating" property, which would be a number, but default at "1.0" value (Number), between "1.0" and "10" inclusive`, () => {
     return request(app)
       .get("/api/reviews")
