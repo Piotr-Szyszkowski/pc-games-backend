@@ -1,4 +1,4 @@
-\c pc_games_test
+\c pc_games
 
 -- SELECT * FROM reviews;
 

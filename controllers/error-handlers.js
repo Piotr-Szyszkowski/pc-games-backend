@@ -4,4 +4,10 @@ const handleRouteNotFound = (request, response, next) => {
     .send({ message: `This is not the page you are looking for` });
 };
 
-module.exports = { handleRouteNotFound };
+const handleCustomErrors = (error, request, response, next) => {
+  if (error.status && error.message) {
+    response.status(error.status).send({ message: error.message });
+  }
+};
+
+module.exports = { handleRouteNotFound, handleCustomErrors };
