@@ -2,8 +2,7 @@ module.exports = [
   {
     title: "Doom (1993)",
     cover_img: "https://cdn.gracza.pl/galeria/gry13/grupy/2036.jpg",
-    // release_date: "1993-12-10",
-    release_date: "2023-07-04T09:59:03.243Z",
+    release_date: "1993-12-10",
     category: "FPS",
     review_intro:
       "A science fiction first-person shooter by id Software, previously known mainly due to the Commander Keen arcade series and the ground-breaking Wolfenstein 3D.",
