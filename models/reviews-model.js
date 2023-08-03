@@ -50,7 +50,9 @@ const selectReviews = async (
 
 const selectReviewById = async (review_id) => {
   const queryString = format(
-    `SELECT * FROM reviews WHERE review_id = %L;`,
+    `SELECT reviews.*,
+      (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count
+    FROM reviews WHERE review_id = %L;`,
     review_id
   );
   const reviewByIdRaw = await db.query(queryString);

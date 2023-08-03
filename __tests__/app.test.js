@@ -272,6 +272,7 @@ describe(`REVIEW - GET /api/reviews/:review_id`, () => {
           rating_count: 4,
           rating_sum: 15,
           rating: 3.8,
+          comment_count: 3,
         });
       });
   });
