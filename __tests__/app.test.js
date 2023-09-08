@@ -329,7 +329,7 @@ describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
         });
       });
   });
-  it(`SubmitRating - Test 1 - Status: 200, should accept an object in the form like {givenRating: 7.5} and add it to the rating_sum and increment rating_count by 1, from which then rating is calculated. Should then return a review object with updated rating.`, () => {
+  it(`SubmitRating - Test 1 - Status: 200, should accept an object in the form like {givenRating: 7.5} and add it to the rating_sum and increment rating_count by 1, from which then rating is calculated. Should then return a review object with updated rating. The returned object should include comment_count.`, () => {
     return request(app)
       .patch(`/api/reviews/3`)
       .send({ givenRating: 7.5 })
@@ -350,6 +350,7 @@ describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
           rating_count: 5,
           rating_sum: 22.5,
           rating: 4.5,
+          comment_count: 3,
         });
       });
   });

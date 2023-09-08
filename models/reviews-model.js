@@ -149,7 +149,8 @@ const updateReviewById = async (
       `UPDATE reviews SET
     rating = rating_sum / rating_count
     WHERE reviews.review_id = $1
-    RETURNING *;`,
+    RETURNING *,
+    (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count;`,
       [review_id]
     );
     const updatedReview = queryTwo.rows[0];
