@@ -279,7 +279,7 @@ describe(`REVIEW - GET /api/reviews/:review_id`, () => {
 });
 
 describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
-  it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote.`, () => {
+  it(`Upvote - Test 1 - Status: 200, should accept an object in the form {upvote: true} and increase the number of upvotes for the review by one. Should respond with complete review object updated with new upvote. The returned object should include comment_count.`, () => {
     return request(app)
       .patch(`/api/reviews/4`)
       .send({ upvote: true })
@@ -300,10 +300,11 @@ describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
           rating_count: 0,
           rating_sum: 0,
           rating: 1.0,
+          comment_count: 1,
         });
       });
   });
-  it(`Downvote - Test 1 - Status: 200, should accept an object in the form {downvote: true} and increase the number of downvotes for the review by one. Should respond with complete review object updated with new downvote.`, () => {
+  it(`Downvote - Test 1 - Status: 200, should accept an object in the form {downvote: true} and increase the number of downvotes for the review by one. Should respond with complete review object updated with new downvote. The returned object should include comment_count.`, () => {
     return request(app)
       .patch(`/api/reviews/2`)
       .send({ downvote: true })
@@ -324,6 +325,7 @@ describe(`REVIEW UPVOTE-DOWNVOTE-RATE - PATCH /api/reviews/:review_id`, () => {
           rating_count: 2,
           rating_sum: 3,
           rating: 1.5,
+          comment_count: 0,
         });
       });
   });
@@ -428,6 +430,28 @@ describe(`ERRORS: GET /api/reviews`, () => {
         );
       });
   });
+
+  it(`Status: 404 and custom message when passed category does not exist in database`, async () => {
+    const nonexistentCategory1 = "water-pinball";
+    const nonexistentCategory2 = "bazookas";
+    const response1 = await request(app).get(
+      `/api/reviews?category=${nonexistentCategory1}`
+    );
+    const response2 = await request(app).get(
+      `/api/reviews?category=${nonexistentCategory2}`
+    );
+    expect(response1.status).toBe(404);
+    expect(response2.status).toBe(404);
+    expect(response1.body.message).toBe(
+      `The ${nonexistentCategory1} category does not exist in our database. Please try another one.`
+    );
+    expect(response2.body.message).toBe(
+      `The ${nonexistentCategory2} category does not exist in our database. Please try another one.`
+    );
+  });
+
+  it(`Status:404 and custom message when passed category does not match any reviews in the database`, async () => {});
+
   it(`Status: 400 and custom message if passed invalid sort_by query`, () => {
     invSortBy = `sortItOut`;
     return request(app)

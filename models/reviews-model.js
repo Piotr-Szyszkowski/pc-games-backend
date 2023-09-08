@@ -17,6 +17,23 @@ const selectReviews = async (
     "rating",
   ];
 
+  if (category !== "%") {
+    const existingCategoriesRaw = await db.query(
+      "SELECT cat_name FROM categories;"
+    );
+    const existingCategories = existingCategoriesRaw.rows.map(
+      (catObj) => catObj.cat_name
+    );
+    if (!existingCategories.includes(category)) {
+      return Promise.reject({
+        status: 404,
+        message: `The ${category} category does not exist in our database. Please try another one.`,
+      });
+    }
+    // console.log("Categories are:");
+    // console.log(existingCategories);
+  }
+
   if (!acceptedOrders.includes(order)) {
     return Promise.reject({
       status: 400,
@@ -80,7 +97,8 @@ const updateReviewById = async (
     const upvoteQueryStr = format(
       `UPDATE reviews SET upvotes = upvotes + 1
     WHERE reviews.review_id = %L
-   RETURNING *;`,
+   RETURNING *,
+   (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count;`,
       review_id
     );
     const upvoteQuery = await db.query(upvoteQueryStr);
@@ -93,7 +111,8 @@ const updateReviewById = async (
     const downvoteQueryStr = format(
       `UPDATE reviews SET downvotes = downvotes + 1
     WHERE reviews.review_id = %L
-   RETURNING *;`,
+   RETURNING *,
+   (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count;`,
       review_id
     );
     const downvoteQuery = await db.query(downvoteQueryStr);

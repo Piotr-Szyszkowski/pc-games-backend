@@ -6,7 +6,6 @@ const {
   handleCustomErrors,
   handleInternalServerError,
 } = require("./controllers/error-handlers");
-const internalErrorGenerator = require("./controllers/internal-error-generator");
 const app = express();
 
 app.use(express.json());
