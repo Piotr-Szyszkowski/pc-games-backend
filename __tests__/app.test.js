@@ -451,7 +451,16 @@ describe(`ERRORS: GET /api/reviews`, () => {
     );
   });
 
-  it(`Status:404 and custom message when passed category does not match any reviews in the database`, async () => {});
+  it(`Status:404 and custom message when passed category exists in database, but does not match any reviews in the database`, async () => {
+    const categoryWithNoReview = "Simulation";
+    const response1 = await request(app).get(
+      `/api/reviews?category=${categoryWithNoReview}`
+    );
+    expect(response1.status).toBe(404);
+    expect(response1.body.message).toBe(
+      `There are no reviews mathing category: ${categoryWithNoReview}. Please try a different one.`
+    );
+  });
 
   it(`Status: 400 and custom message if passed invalid sort_by query`, () => {
     invSortBy = `sortItOut`;

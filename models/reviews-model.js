@@ -54,6 +54,14 @@ const selectReviews = async (
     WHERE reviews.category LIKE '${category}'
     ORDER BY ${sort_by} ${order};`
   );
+
+  if (reviewsFromDB.rows.length < 1) {
+    return Promise.reject({
+      status: 404,
+      message: `There are no reviews mathing category: ${category}. Please try a different one.`,
+    });
+  }
+
   const reviewsWithFormattedDateAndRating = reviewsFromDB.rows.map(
     (reviewObject) => {
       reviewObject.release_date = formatDate(reviewObject.release_date);
