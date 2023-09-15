@@ -30,5 +30,9 @@
 // (function (text) {
 //   console.log(text);
 // })(`Ma text`);
-const mystery = "1.234";
-console.log(Number(mystery));
+let mystery = null;
+if (mystery) {
+  console.log(`YUP`);
+} else {
+  console.log(`NOPE`);
+}

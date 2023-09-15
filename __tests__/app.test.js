@@ -509,3 +509,10 @@ describe(`ERRORS: GET /api/reviews/:review_id`, () => {
     );
   });
 });
+
+describe(`ERRORS: PATCH /api/reviews/:review_id`, () => {
+  it(`Status: 400 and custom message if request has no body.`, async () => {
+    const response1 = await request(app).patch(`/api/reviews/:review_id`);
+    expect(response1.status).toBe(400);
+  });
+});

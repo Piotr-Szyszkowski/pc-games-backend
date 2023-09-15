@@ -111,10 +111,12 @@ const updateReviewById = async (
   downvote = false,
   givenRating = null
 ) => {
-  // console.log(`updateReviewById firing!`);
-  // console.log(
-  //   `Upvote from controller is: ${upvote}. Type of upvote is: ${typeof upvote}`
-  // );
+  if (!upvote && !downvote && !givenRating) {
+    return Promise.reject({
+      status: 400,
+      message: `No nuffin`,
+    });
+  }
   if (upvote) {
     const upvoteQueryStr = format(
       `UPDATE reviews SET upvotes = upvotes + 1
