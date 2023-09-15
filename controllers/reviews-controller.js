@@ -16,9 +16,11 @@ const getReviews = (request, response, next) => {
 const getReviewById = (request, response, next) => {
   const { review_id } = request.params;
 
-  selectReviewById(review_id).then((reviewWithId) => {
-    response.status(200).send(reviewWithId);
-  });
+  selectReviewById(review_id)
+    .then((reviewWithId) => {
+      response.status(200).send(reviewWithId);
+    })
+    .catch(next);
 };
 
 const patchReviewById = (request, response, next) => {

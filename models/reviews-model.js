@@ -74,6 +74,14 @@ const selectReviews = async (
 };
 
 const selectReviewById = async (review_id) => {
+  const idToNumber = Number(review_id);
+  if (Number.isInteger(idToNumber) === false) {
+    return Promise.reject({
+      status: 400,
+      message: `Unfortunately ${review_id} is not a valid ID, please use an integer.`,
+    });
+  }
+
   const queryString = format(
     `SELECT reviews.*,
       (SELECT COUNT(*)::integer FROM comments WHERE comments.review_id = reviews.review_id) AS comment_count
@@ -81,6 +89,12 @@ const selectReviewById = async (review_id) => {
     review_id
   );
   const reviewByIdRaw = await db.query(queryString);
+  if (!reviewByIdRaw.rows.length) {
+    return Promise.reject({
+      status: 404,
+      message: `Review ID ${review_id} does not exist in our database. Please try another one.`,
+    });
+  }
   const theReview = reviewByIdRaw.rows[0];
   // console.log(theReview.release_date);
 

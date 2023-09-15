@@ -474,3 +474,38 @@ describe(`ERRORS: GET /api/reviews`, () => {
       });
   });
 });
+
+describe(`ERRORS: GET /api/reviews/:review_id`, () => {
+  it(`Status: 400 and custom message if passed with review_id which is not an integer`, async () => {
+    const invalidId1 = "bonkers";
+    const invalidId2 = "26zapato";
+    const response1 = await request(app).get(`/api/reviews/${invalidId1}`);
+    const response2 = await request(app).get(`/api/reviews/${invalidId2}`);
+
+    expect(response1.status).toBe(400);
+    expect(response2.status).toBe(400);
+    expect(response1.body.message).toBe(
+      `Unfortunately ${invalidId1} is not a valid ID, please use an integer.`
+    );
+    expect(response2.body.message).toBe(
+      `Unfortunately ${invalidId2} is not a valid ID, please use an integer.`
+    );
+  });
+  it(`Status: 404 and custom message when passed review id does not exist in the database`, async () => {
+    const nonExistentId1 = `9`;
+    const nonExistentId2 = `386`;
+
+    const response1 = await request(app).get(`/api/reviews/${nonExistentId1}`);
+    const response2 = await request(app).get(`/api/reviews/${nonExistentId2}`);
+
+    expect(response1.status).toBe(404);
+    expect(response2.status).toBe(404);
+
+    expect(response1.body.message).toBe(
+      `Review ID ${nonExistentId1} does not exist in our database. Please try another one.`
+    );
+    expect(response2.body.message).toBe(
+      `Review ID ${nonExistentId2} does not exist in our database. Please try another one.`
+    );
+  });
+});

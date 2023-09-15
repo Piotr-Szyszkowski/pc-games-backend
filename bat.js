@@ -30,5 +30,5 @@
 // (function (text) {
 //   console.log(text);
 // })(`Ma text`);
-
-console.log(new Date(1688464743243).toISOString());
+const mystery = "1.234";
+console.log(Number(mystery));
